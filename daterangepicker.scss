@@ -431,45 +431,44 @@ $daterangepicker-ranges-active-border-radius: $daterangepicker-border-radius !de
       }
     }
   }
-}
 
-//
-// Predefined Ranges
-//
+  //
+  // Predefined Ranges
+  //
+  .ranges {
+    font-size: 11px;
+    float: none;
+    margin: 4px;
+    text-align: left;
 
-.ranges {
-  font-size: 11px;
-  float: none;
-  margin: 4px;
-  text-align: left;
-
-  ul {
-    list-style: none;
-    margin: 0 auto;
-    padding: 0;
-    width: 100%;
-  }
-
-  li {
-    font-size: 13px;
-    background-color: $daterangepicker-ranges-bg-color;
-    border: $daterangepicker-ranges-border-size solid $daterangepicker-ranges-border-color;
-    border-radius: $daterangepicker-ranges-border-radius;
-    color: $daterangepicker-ranges-color;
-    padding: 3px 12px;
-    margin-bottom: 8px;
-    cursor: pointer;
-
-    &:hover {
-      background-color: $daterangepicker-ranges-hover-bg-color;
-      border: $daterangepicker-ranges-hover-border-size solid $daterangepicker-ranges-hover-border-color;
-      color: $daterangepicker-ranges-hover-color;
+    ul {
+      list-style: none;
+      margin: 0 auto;
+      padding: 0;
+      width: 100%;
     }
 
-    &.active {
-      background-color: $daterangepicker-ranges-hover-bg-color;
-      border: $daterangepicker-ranges-hover-border-size solid $daterangepicker-ranges-hover-border-color;
-      color: $daterangepicker-ranges-hover-color;
+    li {
+      font-size: 13px;
+      background-color: $daterangepicker-ranges-bg-color;
+      border: $daterangepicker-ranges-border-size solid $daterangepicker-ranges-border-color;
+      border-radius: $daterangepicker-ranges-border-radius;
+      color: $daterangepicker-ranges-color;
+      padding: 3px 12px;
+      margin-bottom: 8px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: $daterangepicker-ranges-hover-bg-color;
+        border: $daterangepicker-ranges-hover-border-size solid $daterangepicker-ranges-hover-border-color;
+        color: $daterangepicker-ranges-hover-color;
+      }
+
+      &.active {
+        background-color: $daterangepicker-ranges-hover-bg-color;
+        border: $daterangepicker-ranges-hover-border-size solid $daterangepicker-ranges-hover-border-color;
+        color: $daterangepicker-ranges-hover-color;
+      }
     }
   }
 }
