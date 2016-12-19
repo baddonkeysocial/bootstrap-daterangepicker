@@ -60,6 +60,7 @@
             this.drops = 'up';
 
         this.buttonClasses = 'btn btn-sm';
+        this.rangeClass = 'btn-default';
         this.applyClass = 'btn-success';
         this.cancelClass = 'btn-default';
         this.activeClass = 'active';
@@ -198,6 +199,9 @@
         // sanity check for bad options
         if (this.maxDate && this.endDate.isAfter(this.maxDate))
             this.endDate = this.maxDate.clone();
+
+        if (typeof options.rangeClass === 'string')
+            this.rangeClass = options.rangeClass;
 
         if (typeof options.applyClass === 'string')
             this.applyClass = options.applyClass;
@@ -344,10 +348,14 @@
 
             var list = '<ul>';
             for (range in this.ranges) {
-                list += '<li data-range-key="' + range + '">' + range + '</li>';
+                list += '<li>'
+                + '<button class="rangeBtn" type="button" data-range-key="' + range + '">' + range + '</button>'
+                + '</li>';
             }
             if (this.showCustomRangeLabel) {
-                list += '<li data-range-key="' + this.locale.customRangeLabel + '">' + this.locale.customRangeLabel + '</li>';
+                list += '<li>'
+                + '<button class="rangeBtn" type="button" data-range-key="' + this.locale.customRangeLabel + '">' + this.locale.customRangeLabel + '</button>'
+                + '</li>';
             }
             list += '</ul>';
             this.container.find('.ranges').prepend(list);
@@ -398,7 +406,9 @@
         }
 
         //apply CSS classes and labels to buttons
-        this.container.find('.applyBtn, .cancelBtn').addClass(this.buttonClasses);
+        this.container.find('.applyBtn, .cancelBtn, .rangeBtn').addClass(this.buttonClasses);
+        if (this.rangeClass.length)
+            this.container.find('.rangeBtn').addClass(this.rangeClass);
         if (this.applyClass.length)
             this.container.find('.applyBtn').addClass(this.applyClass);
         if (this.cancelClass.length)
@@ -427,9 +437,9 @@
         this.container.find('.ranges')
             .on('click.daterangepicker', 'button.applyBtn', $.proxy(this.clickApply, this))
             .on('click.daterangepicker', 'button.cancelBtn', $.proxy(this.clickCancel, this))
-            .on('click.daterangepicker', 'li', $.proxy(this.clickRange, this))
-            .on('mouseenter.daterangepicker', 'li', $.proxy(this.hoverRange, this))
-            .on('mouseleave.daterangepicker', 'li', $.proxy(this.updateFormInputs, this));
+            .on('click.daterangepicker', 'button.rangeBtn', $.proxy(this.clickRange, this))
+            .on('mouseenter.daterangepicker', 'button.rangeBtn', $.proxy(this.hoverRange, this))
+            .on('mouseleave.daterangepicker', 'button.rangeBtn', $.proxy(this.updateFormInputs, this));
 
         if (this.element.is('input') || this.element.is('button')) {
             this.element.on({
@@ -617,7 +627,7 @@
             this.renderCalendar('right');
 
             //highlight any predefined range matching the current start and end dates
-            this.container.find('.ranges li').removeClass(this.activeClass);
+            this.container.find('.ranges .rangeBtn').removeClass(this.activeClass);
             if (this.endDate == null) return;
 
             this.calculateChosenLabel();
@@ -1373,14 +1383,14 @@
                 if (this.timePicker) {
                     if (this.startDate.isSame(this.ranges[range][0]) && this.endDate.isSame(this.ranges[range][1])) {
                         customRange = false;
-                        this.chosenLabel = this.container.find('.ranges li:eq(' + i + ')').addClass(this.activeClass).html();
+                        this.chosenLabel = this.container.find('.ranges li:eq(' + i + ') .rangeBtn').addClass(this.activeClass).html();
                         break;
                     }
                 } else {
                     //ignore times when comparing dates if time picker is not enabled
                     if (this.startDate.format('YYYY-MM-DD') == this.ranges[range][0].format('YYYY-MM-DD') && this.endDate.format('YYYY-MM-DD') == this.ranges[range][1].format('YYYY-MM-DD')) {
                         customRange = false;
-                        this.chosenLabel = this.container.find('.ranges li:eq(' + i + ')').addClass(this.activeClass).html();
+                        this.chosenLabel = this.container.find('.ranges li:eq(' + i + ') .rangeBtn').addClass(this.activeClass).html();
                         break;
                     }
                 }
@@ -1388,7 +1398,7 @@
             }
             if (customRange) {
                 if (this.showCustomRangeLabel) {
-                    this.chosenLabel = this.container.find('.ranges li:last').addClass(this.activeClass).html();
+                    this.chosenLabel = this.container.find('.ranges li:last .rangeBtn').addClass(this.activeClass).html();
                 } else {
                     this.chosenLabel = null;
                 }
