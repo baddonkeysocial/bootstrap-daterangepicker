@@ -59,6 +59,7 @@
         if (this.element.hasClass('dropup'))
             this.drops = 'up';
 
+        this.inputClass = 'input-mini form-control';
         this.buttonClasses = 'btn btn-sm';
         this.rangeClass = 'btn-default';
         this.applyClass = 'btn-success';
@@ -98,7 +99,7 @@
             options.template = '<div class="daterangepicker dropdown-menu">' +
                 '<div class="calendar left">' +
                     '<div class="daterangepicker_input">' +
-                      '<input class="input-mini form-control" type="text" name="daterangepicker_start" value="" />' +
+                      '<input class="dateInput" type="text" name="daterangepicker_start" value="" />' +
                       '<i class="fa fa-calendar glyphicon glyphicon-calendar"></i>' +
                       '<div class="calendar-time">' +
                         '<div></div>' +
@@ -109,7 +110,7 @@
                 '</div>' +
                 '<div class="calendar right">' +
                     '<div class="daterangepicker_input">' +
-                      '<input class="input-mini form-control" type="text" name="daterangepicker_end" value="" />' +
+                      '<input class="dateInput" type="text" name="daterangepicker_end" value="" />' +
                       '<i class="fa fa-calendar glyphicon glyphicon-calendar"></i>' +
                       '<div class="calendar-time">' +
                         '<div></div>' +
@@ -226,6 +227,9 @@
 
         if (typeof options.showISOWeekNumbers === 'boolean')
             this.showISOWeekNumbers = options.showISOWeekNumbers;
+
+        if (typeof options.inputClass === 'string')
+            this.inputClass = options.inputClass;
 
         if (typeof options.buttonClasses === 'string')
             this.buttonClasses = options.buttonClasses;
@@ -406,6 +410,7 @@
         }
 
         //apply CSS classes and labels to buttons
+        this.container.find('.dateInput').addClass(this.inputClass);
         this.container.find('.applyBtn, .cancelBtn, .rangeBtn').addClass(this.buttonClasses);
         if (this.rangeClass.length)
             this.container.find('.rangeBtn').addClass(this.rangeClass);
